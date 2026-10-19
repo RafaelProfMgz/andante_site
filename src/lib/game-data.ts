@@ -40,6 +40,9 @@ export const IDLE_LINES: [icon: string, text: string][] = [
   ["✦", "+1 fragmento para o Altar"],
   ["🔥", "Bola de Fogo! 38 de dano"],
   ["🌫", "A névoa sobe do mar e esconde a torre."],
+  ["💠", "Equipou Lâmina do Afogado [B Lendário]"],
+  ["📋", "Contrato cumprido: Derrote 40 monstros"],
+  ["🐦", "O Corvo deixa cair uma moeda. É sua."],
 ]
 
 export const LOGO = "▄▀█ █▄ █ █▀▄ ▄▀█ █▄ █ ▀█▀ █▀▀\n█▀█ █ ▀█ █▄▀ █▀█ █ ▀█  █  ██▄"

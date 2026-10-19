@@ -7,7 +7,9 @@
     "build": "next build",
     "start": "next start -p 3004",
     "lint": "eslint",
-    "sync:game": "cp ../terminal/andante.py public/game/andante.py"
+    "sync:game": "cp ../terminal/andante.py public/game/andante.py",
+    "sync:pixel": "bash scripts/sync-pixel.sh",
+    "sync": "npm run sync:game && npm run sync:pixel"
   },
   "dependencies": {
     "@base-ui/react": "^1.9.0",

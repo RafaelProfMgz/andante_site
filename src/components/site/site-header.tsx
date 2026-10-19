@@ -1,6 +1,7 @@
 import { PlayCta } from "./play-cta"
 
 const LINKS = [
+  { href: "#grafico", label: "versão gráfica" },
   { href: "#torre", label: "a torre" },
   { href: "#sistemas", label: "sistemas" },
   { href: "#baixar", label: "baixar" },

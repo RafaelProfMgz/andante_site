@@ -14,7 +14,7 @@ import { cn } from "@/lib/utils"
 
 const TOUCH_KEYS = [
   { label: "1", key: "1" }, { label: "2", key: "2" }, { label: "3", key: "3" },
-  { label: "F", key: "F" }, { label: "A", key: "A" }, { label: "Q", key: "q" },
+  { label: "F", key: "F" }, { label: "H", key: "H" }, { label: "Q", key: "q" }, { label: "ESC", key: "\x1b" },
   { label: "+", key: "+" }, { label: "−", key: "-" }, { label: "ENTER", key: "\r", wide: true },
 ]
 

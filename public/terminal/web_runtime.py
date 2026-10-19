@@ -3,7 +3,7 @@
 Adaptador do Andante para o navegador (Pyodide + xterm.js).
 
 Roda o andante.py original sem alterações: só troca as peças que dependem
-de um terminal de verdade (stdout, input, termios, clear, sleep) por versões
+de um terminal de verdade (stdout, input, ler_tecla/termios, clear, sleep) por versões
 que conversam com o xterm.js através do módulo JS `webterm` (ver worker.js).
 Os saves continuam sendo os mesmos .txt — cada gravação é copiada para o
 localStorage do navegador.
@@ -109,6 +109,41 @@ def _input(prompt=""):
 builtins.input = _input
 
 
+def _ler_tecla(prompt=" Escolha: "):
+    """Uma tecla, sem ENTER — substitui o ler_tecla() do jogo (que usa termios).
+    Devolve em MAIÚSCULA: "" = ENTER, "0" = ESC, setas = W/A/S/D."""
+    global _sobra
+    sys.stdout.write(str(prompt))
+    webterm.flush()
+    while True:
+        t = _teclas()
+        if not t:
+            webterm.wait_key(1000)
+            continue
+        ch, resto = t[0], t[1:]
+        if ch == "\x03":
+            webterm.write("^C\r\n")
+            raise KeyboardInterrupt
+        if ch == "\x1b":
+            fim = _pular_escape(t, 0)
+            seq, resto = t[:fim], t[fim:]
+            ch = _SETAS.get(seq, "0" if seq == "\x1b" else None)
+        elif ch in "\r\n":
+            ch, resto = "", resto.lstrip("\n")
+        elif ch in "\x7f\b" or ch < " ":
+            ch = None
+        _sobra = resto
+        if ch is None:   # tecla sem significado (F1, Backspace...): espera outra
+            continue
+        webterm.write((ch if ch.strip() else "") + "\r\n")
+        webterm.flush()
+        return ch.upper()
+
+
+_SETAS = {"\x1b[A": "W", "\x1b[B": "S", "\x1b[C": "D", "\x1b[D": "A",
+          "\x1bOA": "W", "\x1bOB": "S", "\x1bOC": "D", "\x1bOD": "A"}
+
+
 class LeitorWeb:
     """Substitui o LeitorTecla (termios/msvcrt) do jogo."""
 
@@ -136,6 +171,8 @@ def iniciar(argv):
 
     andante.LeitorTecla = LeitorWeb
     andante.limpar = _limpar
+    if hasattr(andante, "ler_tecla"):   # menus de uma tecla (versão do jogo com ler_tecla)
+        andante.ler_tecla = _ler_tecla
     gravar_original = andante.gravar_save
 
     def gravar_save(jogador, caminho, titulo):

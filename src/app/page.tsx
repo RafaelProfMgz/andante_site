@@ -1,6 +1,7 @@
 import { Classes } from "@/components/site/classes"
 import { Download } from "@/components/site/download"
 import { Hero } from "@/components/site/hero"
+import { PixelSection } from "@/components/site/pixel-section"
 import { PlaySection } from "@/components/site/play-section"
 import { SiteFooter } from "@/components/site/site-footer"
 import { SiteHeader } from "@/components/site/site-header"
@@ -14,6 +15,7 @@ export default function Home() {
       <main className="mx-auto max-w-6xl px-4 sm:px-8">
         <Hero />
         <PlaySection />
+        <PixelSection />
         <Tower />
         <Systems />
         <Classes />

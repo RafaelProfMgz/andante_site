@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Andante · versão gráfica</title>
+  <!--
+    Versão gráfica do Andante (Pyxel). O andante.pyxapp é gerado por `npm run sync:pixel`
+    a partir de ../terminal (andante.py + andante_gui.py). O pyxel.js baixa o Python (Pyodide) e o Pyxel
+    do jsDelivr, que manda Cross-Origin-Resource-Policy: cross-origin (compatível com o COEP do site).
+    A versão do pyxel.js precisa ser a mesma do pyxel que empacotou o .pyxapp.
+  -->
+  <style>
+    html, body { margin: 0; height: 100%; background: #0a0c0f; color: #d9dccf; font-family: ui-monospace, monospace; }
+    #aviso { position: fixed; inset: 0; display: grid; place-items: center; font-size: 13px; color: #8a8f86; }
+  </style>
+  <script src="https://cdn.jsdelivr.net/gh/kitao/pyxel@2.9.9/wasm/pyxel.js"></script>
+</head>
+<body>
+  <p id="aviso">carregando o Andante…</p>
+  <script>
+    (async () => {
+      const aviso = document.getElementById("aviso")
+      try {
+        const resposta = await fetch("andante.pyxapp")
+        if (!resposta.ok) throw new Error(`andante.pyxapp: ${resposta.status}`)
+        const bytes = new Uint8Array(await resposta.arrayBuffer())
+        let binario = ""
+        for (let i = 0; i < bytes.length; i += 0x8000) binario += String.fromCharCode(...bytes.subarray(i, i + 0x8000))
+        aviso.remove()
+        launchPyxel({ command: "play", name: "andante.pyxapp", gamepad: "disabled", base64: btoa(binario) })
+      } catch (erro) {
+        aviso.textContent = `Não consegui abrir a versão gráfica: ${erro.message}`
+      }
+    })()
+  </script>
+</body>
+</html>

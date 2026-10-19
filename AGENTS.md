@@ -13,4 +13,6 @@ This block is written and re-added by `next dev` — verify at `node_modules/nex
 - Site sempre escuro; cores do jogo em tokens (`text-gold`, `text-success`, `text-info`, `text-arcane`, `bg-terminal`) — veja `src/app/globals.css`.
 - O terminal depende dos headers COOP/COEP em `next.config.ts`. Recursos de outra origem precisam de CORS/CORP (jsDelivr tem).
 - Não edite `public/game/andante.py` aqui: o jogo vive em `../terminal/`; rode `npm run sync:game`.
+- Idem `public/pixel/andante.pyxapp` (versão gráfica): é gerado por `npm run sync:pixel` a partir de `../terminal/andante_gui.py`.
+- O jogo do terminal usa `ler_tecla()` (uma tecla, termios); `public/terminal/web_runtime.py` troca por uma versão que lê do xterm.
 - Skills do projeto em `.agents/skills/` (links em `.claude/skills/`): shadcn, next-best-practices, next-cache-components, vercel-react-best-practices, vercel-composition-patterns, building-components, web-design-guidelines, frontend-design, agent-browser, vercel-cli, deploy-to-vercel.

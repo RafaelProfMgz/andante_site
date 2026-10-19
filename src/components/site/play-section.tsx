@@ -4,12 +4,13 @@ import { SavePanel } from "@/components/terminal/save-panel"
 import { SectionHeading } from "./section-heading"
 
 const HINTS = [
-  { keys: ["3"], label: "modo idle" },
+  { keys: ["ENTER"], label: "modo idle" },
   { keys: ["Q"], label: "sai do idle" },
   { keys: ["+", "−"], label: "velocidade" },
-  { keys: ["A"], label: "auto-compra (no idle)" },
-  { keys: ["F"], label: "forja" },
-  { keys: ["A"], label: "altar (no menu)" },
+  { keys: ["ESC"], label: "volta" },
+  { keys: ["E"], label: "equipamento" },
+  { keys: ["H"], label: "habilidades" },
+  { keys: ["S"], label: "sino do porto" },
 ]
 
 export function PlaySection() {
@@ -17,6 +18,7 @@ export function PlaySection() {
     <section id="jogar" className="scroll-mt-16 py-[clamp(40px,7vw,80px)]">
       <SectionHeading title="Jogar agora">
         O jogo de verdade — o mesmo <code className="text-gold-soft">andante.py</code>, rodando em Python dentro do seu navegador.
+        Os menus respondem a uma tecla, sem ENTER.
       </SectionHeading>
       <GameTerminal />
       <SavePanel />
